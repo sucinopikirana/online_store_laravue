@@ -9,6 +9,25 @@
     <link rel="stylesheet" href="{{asset('polished/polished.min.css')}}">
     <link rel="stylesheet" href="{{asset('polished/iconic/css/open-iconic-bootstrap.min.css')}}">
 
+    <style>
+        .grid-highlight{
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background-color: #5c6ac4;
+            border: 1px solid #202e78;
+            color: #fff;
+        }
+
+        hr{
+            margin: 6rem 0;
+        }
+
+        hr+.display-3,
+        hr+.display-2+.display-3{
+            margin-bottom: 2rem;
+        }
+    </style>
+
     <script type="text/javascript">
         document.documentElement.className =
         document.documentElement.className.replace('no-js', 'js') +
@@ -30,11 +49,11 @@
 
         {{-- Dropdown On Desktop Size --}}
         <div class="dropdown d-none d-md-block ">
-            
+            @if(Auth::user())
             <button class="btn btn-link btn-link-primary dropdown-toggle" id="navbar-dropdown" data-toggle="dropdown">
-                User
+                {{Auth::user()->name}}
             </button>
-
+            @endif
             <div class="dropdown-menu dropdown-menu-right" id="navbar-dropdown">
                 <a href="#" class="dropdown-item">Profile</a>
                 <a href="#" class="dropdown-item">Setting</a>
