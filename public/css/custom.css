@@ -81,7 +81,12 @@
 }
 
 .custom-title {
+    letter-spacing: 5px;
+}
+
+.custom-title-panel {
     letter-spacing: 4px;
+    font-size: large;
 }
 
 .user-information,
@@ -89,8 +94,18 @@
     margin-top: 30px;
 }
 
-.custom-label {
-    letter-spacing: 3px;
+.custom-label,
+.label-custom-checkbox {
     text-transform: uppercase;
     font-style: italic;
+}
+
+.custom-label {
+    letter-spacing: 3px;
+    font-size: medium;
+}
+
+.label-custom-checkbox {
+    letter-spacing: 1.5px;
+    font-size: small;
 }

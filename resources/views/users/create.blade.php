@@ -21,7 +21,7 @@ Create New User
         @csrf
 
         
-        <h5 class="text-center m-3 custom-title">USER INFORMATION</h5>
+        <h5 class="text-center m-3 custom-title-panel">USER INFORMATION</h5>
 
         <div class="user-information">
 
@@ -45,17 +45,17 @@ Create New User
 
                     <div class="form-check form-check-inline">
                         <input type="checkbox" name="roles[]" id="ADMINISTRATOR" value="ADMINISTRATOR" class="checkbox-custom">
-                        <label for="ADMINISTRATOR" class="label-custom-checkbox custom-label">Administrator</label>
+                        <label for="ADMINISTRATOR" class="label-custom-checkbox">Administrator</label>
                     </div>
 
                     <div class="form-check form-check-inline">
                         <input type="checkbox" name="roles[]" id="STAFF" value="STAFF" class="checkbox-custom">
-                        <label for="STAFF" class="label-custom-checkbox custom-label">Staff</label>
+                        <label for="STAFF" class="label-custom-checkbox ">Staff</label>
                     </div>
 
                     <div class="form-check form-check-inline">
                         <input type="checkbox" name="roles[]" id="CUSTOMER" value="CUSTOMER" class="checkbox-custom">
-                        <label for="CUSTOMER" class="label-custom-checkbox custom-label">Customer</label>
+                        <label for="CUSTOMER" class="label-custom-checkbox">Customer</label>
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@ Create New User
 
         </div>
 
-        <h5 class="text-center m-3 custom-title">USER DETAIL</h5>
+        <h5 class="text-center m-3 custom-title-panel">USER DETAIL</h5>
         
         <div class="user-detail">
 
