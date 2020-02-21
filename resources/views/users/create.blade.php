@@ -17,7 +17,7 @@ Create New User
     </div>
     @endif
 
-    <form action="{{route('users.store')}}" method="post" class="bg-white shadow-sm p-3" enctype="multipart/form-data">
+    <form action="{{route('users.store')}}" method="post" class="bg-white shadow-lg p-5 m-10 custom-form" enctype="multipart/form-data">
         @csrf
 
         
