@@ -20,36 +20,65 @@ Create New User
     <form action="{{route('users.store')}}" method="post" class="bg-white shadow-sm p-3" enctype="multipart/form-data">
         @csrf
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="firstname">Firstname</label>
-                <input type="text" class="form-control" id="firstname" placeholder="Firstname" name="firstname">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="lastname">Lastname</label>
-                <input type="text" class="form-control" id="lastname" placeholder="Lastname" name="lastname">
-            </div>
-        </div>
-
-        <label for="">Roles</label>
-
-        <div class="form-row">    
-            <div class="form-group col-md-6">
-
-                <input type="checkbox" name="roles[]" id="ADMINISTRATOR" value="ADMINISTRATOR">
-                <label for="ADMINISTRATOR">Administrator</label>
-                
-                <input type="checkbox" name="roles[]" id="STAFF" value="STAFF">
-                <label for="STAFF">Staff</label>
-
-                <input type="checkbox" name="roles[]" id="CUSTOMER" value="CUSTOMER">
-                <label for="CUSTOMER">Customer</label>
-
-                
-            </div>
-        </div>
         
+        <h5 class="text-center m-3 custom-title">USER INFORMATION</h5>
+
+        <div class="user-information">
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="firstname" class="custom-label">FIRSTNAME</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="lastname" class="custom-label">Lastname</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname">
+                </div>
+            </div>
+
+            <div class="form-row">    
+                <div class="form-group col-md-6">
+                    <label for="" class="custom-label">Roles</label>
+                    
+                    <br>
+
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" name="roles[]" id="ADMINISTRATOR" value="ADMINISTRATOR" class="checkbox-custom">
+                        <label for="ADMINISTRATOR" class="label-custom-checkbox custom-label">Administrator</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" name="roles[]" id="STAFF" value="STAFF" class="checkbox-custom">
+                        <label for="STAFF" class="label-custom-checkbox custom-label">Staff</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" name="roles[]" id="CUSTOMER" value="CUSTOMER" class="checkbox-custom">
+                        <label for="CUSTOMER" class="label-custom-checkbox custom-label">Customer</label>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="phone-number" class="custom-label">Phone Number</label>
+                    <input type="text" name="phone" id="phone-number" class="form-control">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="address" class="custom-label">Address</label>
+                    <textarea rows="4" name="address" id="address" class="form-control"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+        <h5 class="text-center m-3 custom-title">USER DETAIL</h5>
+        
+        <div class="user-detail">
+
+        </div>
 
     </form>
 </div>

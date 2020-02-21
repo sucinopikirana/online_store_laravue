@@ -8,6 +8,7 @@
     <title>Larashop @yield('title')</title>
     <link rel="stylesheet" href="{{asset('polished/polished.min.css')}}">
     <link rel="stylesheet" href="{{asset('polished/iconic/css/open-iconic-bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 
     <style>
         .grid-highlight{

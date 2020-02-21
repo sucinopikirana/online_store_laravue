@@ -1,0 +1,96 @@
+/* Base for label styling */
+.checkbox-custom:not(:checked),
+.checkbox-custom:checked {
+    position: absolute;
+    left: -9999px;
+}
+
+.checkbox-custom:not(:checked)+.label-custom-checkbox,
+.checkbox-custom:checked+.label-custom-checkbox {
+    position: relative;
+    padding-left: 1.95em;
+    cursor: pointer;
+}
+
+/* checkbox aspect */
+.checkbox-custom:not(:checked)+.label-custom-checkbox::before,
+.checkbox-custom:checked+.label-custom-checkbox::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.25em;
+    height: 1.25em;
+    border: 2px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1);
+}
+
+.checkbox-custom:not(:checked)+.label-custom-checkbox::after,
+.checkbox-custom:checked+.label-custom-checkbox::after {
+    content: '\2713\0020';
+    position: absolute;
+    top: .15em;
+    left: .22em;
+    font-size: 1.3em;
+    line-height: 0.8;
+    color: #202E78;
+    transition: all .2s;
+    font-family: 'Lucida Sans Unicode',
+        'Arial Unicode MS',
+        Arial;
+}
+
+/* checked mark aspect changes */
+.checkbox-custom:not(:checked)+.label-custom-checkbox:after {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.checkbox-custom:checked+.label-custom-checkbox:after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* disabled checkbox */
+.checkbox-custom:disabled:not(:checked)+.label-custom-checkbox:before,
+.checkbox-custom:disabled:checked+.label-custom-checkbox:before {
+    box-shadow: none;
+    border-color: #bbb;
+    background-color: #ddd;
+}
+
+.checkbox-custom:disabled:checked+.label-custom-checkbox:after {
+    color: #999;
+}
+
+.checkbox-custom:disabled+.label-custom-checkbox {
+    color: #aaa;
+}
+
+/* accessibility */
+.checkbox-custom:checked:focus+.label-custom-checkbox:before,
+.checkbox-custom:not(:checked):focus+.label-custom-checkbox:before {
+    border: 2px dotted blue;
+}
+
+/* hover style just for information */
+.label-custom-checkbox:hover:before {
+    border: 2px solid #4778d9 !important;
+}
+
+.custom-title {
+    letter-spacing: 4px;
+}
+
+.user-information,
+.user-detail {
+    margin-top: 30px;
+}
+
+.custom-label {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-style: italic;
+}
