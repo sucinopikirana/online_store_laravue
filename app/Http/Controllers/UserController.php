@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use User;
+use Alert;
 
 class UserController extends Controller
 {
@@ -55,9 +56,10 @@ class UserController extends Controller
         //     $new_user->avatar = $file;
         // }
 
-        $new_user->save();
+        // $new_user->save();
 
-        return redirect()->route('users.create')->with('status', 'User successfully created.');
+
+        // return redirect()->route('users.create')->with('status', 'User successfully created.');
     }
 
     /**

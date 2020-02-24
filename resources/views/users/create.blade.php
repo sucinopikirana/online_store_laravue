@@ -16,9 +16,27 @@ Create New User
         {{session('status')}}
     </div>
     @endif
+
     <!-- Form Create User -->
     <form action="{{route('users.store')}}" method="post" class="bg-white shadow-lg p-5 m-10 custom-form" enctype="multipart/form-data">
         @csrf
+
+        <div class="form-row">
+            <div class="form-group col-md-12 text-center">
+                <label for="avatar" class="custom-label" style="font-weight: bold;">Choose Avatar Image</label>
+
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <div id="imagePreview" style="background-image: url({{asset('img/profile-picture.jpg')}});">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Panel User Information -->
         <h5 class="text-center m-3 custom-title-panel">USER INFORMATION</h5>
@@ -100,23 +118,38 @@ Create New User
                 </div>
             </div>
 
-
-            <div class="form-row">
-                <div class="form-group col-md-12 text-center">
-                    <label for="avatar" class="custom-label">Choose Avatar Image</label>
-
-                    <div class="avatar-wrapper">
-                        <img src="" alt="profile picture" class="profile-pic">
-                        <div class="upload-button">
-                            <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-                        </div>
-                        <input type="file" name="avatar" id="avatar" class="file-upload" accept="image/*">
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- End Panel User Detail -->
+
+        {{-- Submit --}}
+
+        <div class="form-row">
+            <input type="submit" value="Save" class="btn btn-outline-blue btn-block custom-label-btn">
+        </div>
+        
+
+        {{-- End Submit --}}
     </form>
     <!-- End Form Create User -->
 </div>
+
 @endsection
+
+@section('footerScript')
+    $("#imageUpload").change(function() {
+        readURL(this);
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                $('#imagePreview').hide();
+                $('#imagePreview').fadeIn(650);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+@endsection
+
