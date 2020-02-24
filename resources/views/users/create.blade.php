@@ -16,18 +16,18 @@ Create New User
         {{session('status')}}
     </div>
     @endif
-
+    <!-- Form Create User -->
     <form action="{{route('users.store')}}" method="post" class="bg-white shadow-lg p-5 m-10 custom-form" enctype="multipart/form-data">
         @csrf
 
-        
+        <!-- Panel User Information -->
         <h5 class="text-center m-3 custom-title-panel">USER INFORMATION</h5>
 
         <div class="user-information">
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="firstname" class="custom-label">FIRSTNAME</label>
+                    <label for="firstname" class="custom-label">Firstname</label>
                     <input type="text" class="form-control" id="firstname" name="firstname">
                 </div>
 
@@ -74,12 +74,49 @@ Create New User
 
         </div>
 
+        <!-- End Panel User Information -->
+
+        <!-- Panel User Detail -->
         <h5 class="text-center m-3 custom-title-panel">USER DETAIL</h5>
         
         <div class="user-detail">
 
-        </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="email" class="custom-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control">
+                </div>
+            </div>
 
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="password" class="custom-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="password-confirmation" class="custom-label">Password Confirmation</label>
+                    <input type="password" name="password-confirmation" id="password-confirmation" class="form-control">
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-12 text-center">
+                    <label for="avatar" class="custom-label">Choose Avatar Image</label>
+
+                    <div class="avatar-wrapper">
+                        <img src="" alt="profile picture" class="profile-pic">
+                        <div class="upload-button">
+                            <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                        </div>
+                        <input type="file" name="avatar" id="avatar" class="file-upload" accept="image/*">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel User Detail -->
     </form>
+    <!-- End Form Create User -->
 </div>
 @endsection
