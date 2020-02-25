@@ -18,9 +18,7 @@ Create New User
     @endif
 
     <!-- Form Create User -->
-    <form action="{{route('users.store')}}" method="post" class="bg-white shadow-lg p-5 m-10 custom-form" enctype="multipart/form-data">
-        @csrf
-
+    <div class="bg-white shadow-lg p-5 m-10 custom-form" id="create-user">
         <div class="form-row">
             <div class="form-group col-md-12 text-center">
                 <label for="avatar" class="custom-label" style="font-weight: bold;">Choose Avatar Image</label>
@@ -62,17 +60,17 @@ Create New User
                     <br>
 
                     <div class="form-check form-check-inline">
-                        <input type="checkbox" name="roles[]" id="ADMINISTRATOR" value="ADMINISTRATOR" class="checkbox-custom">
+                        <input type="checkbox" name="roles" id="ADMINISTRATOR" value="ADMINISTRATOR" class="checkbox-custom">
                         <label for="ADMINISTRATOR" class="label-custom-checkbox">Administrator</label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                        <input type="checkbox" name="roles[]" id="STAFF" value="STAFF" class="checkbox-custom">
+                        <input type="checkbox" name="roles" id="STAFF" value="STAFF" class="checkbox-custom">
                         <label for="STAFF" class="label-custom-checkbox ">Staff</label>
                     </div>
 
                     <div class="form-check form-check-inline">
-                        <input type="checkbox" name="roles[]" id="CUSTOMER" value="CUSTOMER" class="checkbox-custom">
+                        <input type="checkbox" name="roles" id="CUSTOMER" value="CUSTOMER" class="checkbox-custom">
                         <label for="CUSTOMER" class="label-custom-checkbox">Customer</label>
                     </div>
                 </div>
@@ -115,6 +113,7 @@ Create New User
                 <div class="form-group col-md-6">
                     <label for="password-confirmation" class="custom-label">Password Confirmation</label>
                     <input type="password" name="password-confirmation" id="password-confirmation" class="form-control">
+                    <div class="invalid-feedback"></div>
                 </div>
             </div>
 
@@ -124,12 +123,13 @@ Create New User
         {{-- Submit --}}
 
         <div class="form-row">
-            <input type="submit" value="Save" class="btn btn-outline-blue btn-block custom-label-btn">
+            <button class="btn btn-outline-blue btn-block custom-label-btn" id="save-user">Save</button>
+            {{-- <input type="submit" value="Save" class="btn btn-outline-blue btn-block custom-label-btn" id="save-user"> --}}
         </div>
         
 
         {{-- End Submit --}}
-    </form>
+    </div>
     <!-- End Form Create User -->
 </div>
 
@@ -139,6 +139,57 @@ Create New User
     $("#imageUpload").change(function() {
         readURL(this);
     });
+
+    $("#save-user").click(() => {
+        Swal.fire({
+            title: `Are you sure?`,
+            text: `You want to save data`,
+            icon: `warning`,
+            showCancelButton: true,
+            confirmButtonColor: ``,
+            cancelButtonColor: ``,
+            confirmButtonText: `Yes, save it!`
+        }).then((result)=>{
+            if(result.value){
+                
+                let roles = [];
+                const firstname = $('#firstname').val();
+                const lastname = $('#lastname').val();
+
+                const name =  firstname + " " + lastname;
+                const username = firstname + lastname;
+
+                $.each($("input:checkbox[name=roles]:checked"), function(){
+                    roles.push($(this).val())
+                });
+
+                const phone = $('#phone-number').val();
+                const address = $('#address').val();
+                const email = $('#email').val();
+                const password = $('#password-confirmation').val();
+
+
+                const valueForm = {
+                    name: name,
+                    username: username,
+                    roles: roles,
+                    phone: phone,
+                    address: address,
+                    email: email,
+                    password: password
+                }
+
+                save(valueForm);
+            }
+        })
+    });
+
+    $("#password-confirmation").keyup(() => {
+        const newPassword = $(`#password-confirmation`).val()
+        const oldPassword = $(`#password`).val()
+
+        validate(oldPassword, newPassword)        
+    })
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -150,6 +201,26 @@ Create New User
             }
             reader.readAsDataURL(input.files[0]);
         }
+    }
+
+    function validate(oldPassword, newPassword){
+        if(oldPassword != newPassword){
+            $(`#password-confirmation`).addClass('is-invalid')
+            $(`#password-confirmation`).next()[0].innerHTML = 'Please enter the same value again'
+            console.log()
+        }
+        else{
+            $(`#password-confirmation`).removeClass('is-invalid')
+        }
+    }
+
+    function save(value){
+        Object.assign(value, {
+                _token: "{{csrf_token()}}"
+            }
+        )
+
+        console.log(value)
     }
 @endsection
 

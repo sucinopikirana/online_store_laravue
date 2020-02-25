@@ -135,6 +135,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             @yield("footerScript")
+            
         })
     </script>
 </body>
