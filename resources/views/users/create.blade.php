@@ -18,7 +18,7 @@ Create New User
     @endif
 
     <!-- Form Create User -->
-    <div class="bg-white shadow-lg p-5 m-10 custom-form" id="create-user">
+    <form method="POST" action="" class="bg-white shadow-lg p-5 m-10 custom-form" id="create-user">
         <div class="form-row">
             <div class="form-group col-md-12 text-center">
                 <label for="avatar" class="custom-label" style="font-weight: bold;">Choose Avatar Image</label>
@@ -123,13 +123,13 @@ Create New User
         {{-- Submit --}}
 
         <div class="form-row">
-            <button class="btn btn-outline-blue btn-block custom-label-btn" id="save-user">Save</button>
-            {{-- <input type="submit" value="Save" class="btn btn-outline-blue btn-block custom-label-btn" id="save-user"> --}}
+            {{-- <button class="btn btn-outline-blue btn-block custom-label-btn" id="save-user">Save</button> --}}
+            <input type="button" value="Save" class="btn btn-outline-blue btn-block custom-label-btn" id="save-user">
         </div>
         
 
         {{-- End Submit --}}
-    </div>
+    </form>
     <!-- End Form Create User -->
 </div>
 
@@ -151,7 +151,13 @@ Create New User
             confirmButtonText: `Yes, save it!`
         }).then((result)=>{
             if(result.value){
+
+                const form = $('#create-user')[0]
                 
+                var fd = new FormData(form);
+                const files = $('#imageUpload')[0].files[0];
+                fd.append('avatar', files);
+
                 let roles = [];
                 const firstname = $('#firstname').val();
                 const lastname = $('#lastname').val();
@@ -168,18 +174,36 @@ Create New User
                 const email = $('#email').val();
                 const password = $('#password-confirmation').val();
 
+                fd.append('name', name)
+                fd.append('username', username)
+                fd.append('roles', roles)
+                fd.append('phone', phone)
+                fd.append('address', address)
+                fd.append('password', password)
+                fd.append('_token', "{{csrf_token()}}")
 
-                const valueForm = {
-                    name: name,
-                    username: username,
-                    roles: roles,
-                    phone: phone,
-                    address: address,
-                    email: email,
-                    password: password
-                }
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "{{route('users.store')}}",
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    timeout: 800000,
+                    success: function (data) {
+                        console.log(data)
 
-                save(valueForm);
+                        Swal.fire(
+                            'Good job!',
+                            'User Created!',
+                            'success'
+                        )
+                    },
+                    error: function (e) {
+                        console.log("ERROR : ", e);
+                    }
+                })
             }
         })
     });
@@ -214,13 +238,5 @@ Create New User
         }
     }
 
-    function save(value){
-        Object.assign(value, {
-                _token: "{{csrf_token()}}"
-            }
-        )
-
-        console.log(value)
-    }
 @endsection
 
