@@ -84,7 +84,7 @@ Create New User
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="address" class="custom-label">Address</label>
-                    <textarea rows="4" name="address" id="address" class="form-control"></textarea>
+                    <textarea rows="4" name="address" id="address" class="form-control "></textarea>
                 </div>
             </div>
 
@@ -141,7 +141,31 @@ Create New User
     });
 
     $("#save-user").click(() => {
-        Swal.fire({
+
+        const form = $('#create-user')[0]
+        const files = $('#imageUpload')[0].files[0];
+        
+        let roles = [];
+        const firstname = $('#firstname').val();
+        const lastname = $('#lastname').val();
+
+        const name =  firstname + " " + lastname;
+        const username = firstname + lastname;
+
+        $.each($("input:checkbox[name=roles]:checked"), function(){
+            roles.push($(this).val())
+        });
+
+        const phone = $('#phone-number').val();
+        const address = $('#address').val();
+        const email = $('#email').val();
+        const password = $('#password-confirmation').val();
+
+        if(files != null || files != "" && firstname != "" 
+            && lastname != "" && roles.length > 0 && phone != ""
+            && address != "" && email != "" && password != "")
+        {
+            Swal.fire({
             title: `Are you sure?`,
             text: `You want to save data`,
             icon: `warning`,
@@ -149,63 +173,59 @@ Create New User
             confirmButtonColor: ``,
             cancelButtonColor: ``,
             confirmButtonText: `Yes, save it!`
-        }).then((result)=>{
-            if(result.value){
+            }).then((result)=>{
+                if(result.value){
+                    var fd = new FormData(form);
+                    fd.append('avatar', files);
+                    fd.append('name', name)
+                    fd.append('username', username)
+                    fd.append('roles', roles)
+                    fd.append('phone', phone)
+                    fd.append('address', address)
+                    fd.append('password', password)
+                    fd.append('_token', "{{csrf_token()}}")
 
-                const form = $('#create-user')[0]
-                
-                var fd = new FormData(form);
-                const files = $('#imageUpload')[0].files[0];
-                fd.append('avatar', files);
+                    $.ajax({
+                        type: "POST",
+                        enctype: 'multipart/form-data',
+                        url: "{{route('users.store')}}",
+                        data: fd,
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        timeout: 800000,
+                        success: function (data) {
+                            console.log(data.status)
 
-                let roles = [];
-                const firstname = $('#firstname').val();
-                const lastname = $('#lastname').val();
+                            if(data.status == 'true')
+                            {
+                                Swal.fire(
+                                    'Good job!',
+                                    'User Created!',
+                                    'success'
+                                )
+                            }
+                            else{
+                                Swal.fire(
+                                    'Ooops!',
+                                    'Something wrong',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function (e) {
+                            console.log("ERROR : ", e);
+                        }
+                    })
+                }
+            })
+        }
+        else{
+            
+        }
 
-                const name =  firstname + " " + lastname;
-                const username = firstname + lastname;
 
-                $.each($("input:checkbox[name=roles]:checked"), function(){
-                    roles.push($(this).val())
-                });
-
-                const phone = $('#phone-number').val();
-                const address = $('#address').val();
-                const email = $('#email').val();
-                const password = $('#password-confirmation').val();
-
-                fd.append('name', name)
-                fd.append('username', username)
-                fd.append('roles', roles)
-                fd.append('phone', phone)
-                fd.append('address', address)
-                fd.append('password', password)
-                fd.append('_token', "{{csrf_token()}}")
-
-                $.ajax({
-                    type: "POST",
-                    enctype: 'multipart/form-data',
-                    url: "{{route('users.store')}}",
-                    data: fd,
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    timeout: 800000,
-                    success: function (data) {
-                        console.log(data)
-
-                        Swal.fire(
-                            'Good job!',
-                            'User Created!',
-                            'success'
-                        )
-                    },
-                    error: function (e) {
-                        console.log("ERROR : ", e);
-                    }
-                })
-            }
-        })
+        
     });
 
     $("#password-confirmation").keyup(() => {
